@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool ifposs(vector<int>& nums, int mid, int op)
+    {
+        int count =0;
+        for(int i =0;i<nums.size();i++)
+        {
+            count+=(nums[i]-1)/mid;
+            if(count>op){
+                return false;
+            }
+        }
+        return true;
+    }
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        long long int s  =1;
+        long long int e  = *max_element(nums.begin(),nums.end());
+        long long int ans =0;
+        while(s<=e)
+        {
+            long long int mid = s+(e-s)/2;
+            if(ifposs(nums,mid,maxOperations))
+            {
+                ans = mid;
+                e=mid-1;
+            }
+            else
+            {
+                s=mid+1;
+            }
+        }
+        return ans ;
+    }
+};
